@@ -2,6 +2,7 @@
 require 'rspec'
 require 'card'
 require 'hand'
+require 'player'
 
 describe "Card" do
   describe "initialize" do
@@ -100,5 +101,53 @@ describe "Hand" do
       test_hand.book.should eq nil
     end
   end
-
 end
+
+describe "Player" do
+  describe "initialize" do
+    it "initializes a player with a name" do
+      test_player = Player.new("moof")
+      test_player.should be_an_instance_of Player
+    end
+  end
+  describe "name" do
+    it "returns the player's name" do
+      Player.new("moof").name.should eq "moof"
+    end
+  end
+  describe "books" do
+    it "returns the number of books a player has so far" do
+      Player.new("moof").books.should eq 0
+    end
+  end
+  describe "add_book" do
+    it "increases books by 1" do
+      moof = Player.new("moof")
+      moof.add_book
+      moof.books.should eq 1
+    end
+  end
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
