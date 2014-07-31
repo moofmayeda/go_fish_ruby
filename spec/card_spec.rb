@@ -5,6 +5,10 @@ require 'hand'
 require 'player'
 
 describe "Card" do
+  before do
+    Card.clear
+  end
+
   describe "initialize" do
     it "initializes a card with the given rank and suit" do
       Card.new("4", "C").should be_an_instance_of Card
@@ -85,6 +89,14 @@ describe "Hand" do
       card_3 = Card.new('6', 'C')
       test_hand = Hand.new([card_1, card_2, card_3])
       test_hand.matches('4').should eq [card_1, card_2]
+    end
+
+    it "returns an empty array if there are no matching cards" do
+      card_1 = Card.new('4', 'H')
+      card_2 = Card.new('4', 'D')
+      card_3 = Card.new('6', 'C')
+      test_hand = Hand.new([card_1, card_2, card_3])
+      test_hand.matches('K').should eq []
     end
   end
 

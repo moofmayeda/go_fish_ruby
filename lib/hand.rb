@@ -25,15 +25,6 @@ class Hand
   end
 
   def book
-    # ranks = @cards.collect {|card| card.rank }
-    # [ 'A', 'J', 'Q', 'K',
-    #   '10', '9', '8', '7',
-    #   '6', '5', '4', '3', '2'].each do | test_rank |
-    #   if ranks.count(test_rank) == 4
-    #     return test_rank
-    #   end
-    # end
-    # ''
     counts = Hash.new 0
     @cards.each do |card|
       counts[card.rank] += 1
