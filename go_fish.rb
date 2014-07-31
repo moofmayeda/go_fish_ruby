@@ -35,8 +35,13 @@ def play
   puts "Player #{whose_turn}'s cards:"
   @my_hand.cards.sort_by{|card| card.rank}.each {|card| puts "#{card.rank}#{card.suit}"}
   puts "What rank do you want to ask the other player for?"
-  if @opponent_hand.has_card?(gets.chomp)
-
+  selected_card = gets.chomp
+  if @opponent_hand.has_card?(selected_card)
+    @my_hand.add_cards(@opponent_hand.matches(selected_card))
+    @opponent_hand.remove_cards(selected_card)
+    check_for_book
+    end_of_game
+    play
   else
     puts "sorry, go fish!"
     removed = @deck.cards.sample
@@ -45,14 +50,15 @@ def play
     puts "you drew a #{removed.rank}#{removed.suit}"
     check_for_book
     end_of_game
-    turn
+    @turn += 1
+    puts "\e[H\e[2J"
+    play
   end
-  @turn += 1
 
 end
 
 def end_of_game
-  @my_hand.cards.length == 0 ? exit : "continue"
+  @my_hand.cards.length == 0 ? puts "#{@current_player} wins!" : "continue"
 end
 
 def check_for_book
